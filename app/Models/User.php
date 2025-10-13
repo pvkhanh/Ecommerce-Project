@@ -58,6 +58,50 @@ class User extends Authenticatable
             'is_active' => 'boolean',
         ];
     }
-   
-    
+
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasManyThrough(OrderItem::class, Order::class);
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class, 'author_id');
+    }
+
+    public function mailRecipients()
+    {
+        return $this->hasMany(MailRecipient::class);
+    }
+
 }
