@@ -14,17 +14,13 @@ return new class extends Migration {
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete()->index();
-            // $table->enum('payment_method', ['card', 'bank', 'cod', 'wallet'])
-            //     ->comment('Phương thức thanh toán');
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->enum('payment_method', PaymentMethod::values())
                 ->comment('Payment method');
-            $table->string('transaction_id', 100)->nullable()->unique() // ✅ lookup
+            $table->string('transaction_id', 100)->nullable()->unique() 
                 ->comment('Transaction code');
             $table->decimal('amount', 10, 2)->default(0);
             $table->timestamp('paid_at')->nullable();
-            // $table->enum('status', ['pending', 'success', 'failed'])->default('pending')
-            //     ->comment('Trạng thái thanh toán');
             $table->enum('status', PaymentStatus::values())
                 ->default(PaymentStatus::Pending->value)
                 ->comment('Payment status');

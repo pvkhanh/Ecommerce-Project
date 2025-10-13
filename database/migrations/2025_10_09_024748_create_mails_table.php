@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->string('subject', 255);
             $table->text('content');
             $table->string('template_key', 100)->nullable();
-            // $table->enum('type', ['system', 'user', 'marketing'])->default('system')
-            //     ->comment('Loại email');
             $table->enum('type', MailType::values())
                 ->default(MailType::System->value)
                 ->comment('Email type');

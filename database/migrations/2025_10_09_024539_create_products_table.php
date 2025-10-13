@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('slug', 255)->unique();
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2)->index();
-            // $table->enum('status', ['active', 'inactive', 'banned'])->default('active');
             $table->enum('status', ProductStatus::values())->default(ProductStatus::Active->value)->index();
             $table->timestamps();
             $table->softDeletes();

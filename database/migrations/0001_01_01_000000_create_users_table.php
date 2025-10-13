@@ -19,13 +19,10 @@ return new class extends Migration {
             $table->string('first_name', 50)->nullable();
             $table->string('last_name', 50)->nullable();
             $table->string('phone', 20)->nullable()->index();
-            // $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->enum('gender', Gender::values())->nullable();
             $table->date('birthday')->nullable();
             $table->string('avatar_url', 255)->nullable();
             $table->text('bio')->nullable();
-            // $table->enum('role', ['buyer', 'admin'])->default('buyer');
-            // $table->enum('role', UserRole::values())->default('buyer');
             $table->enum('role', UserRole::values())->default(UserRole::Buyer->value)->index();
             $table->boolean('is_active')->default(true)->index();
             $table->timestamp('email_verified_at')->nullable()->index();

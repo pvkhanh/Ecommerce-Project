@@ -15,9 +15,7 @@ return new class extends Migration {
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->index();
-            // $table->enum('type', ['system', 'order', 'promotion', 'activity'])
-            //     ->comment('Loại thông báo');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->enum('type', NotificationType::values())
                 ->comment('Notification Type');
             $table->string('title', 255);

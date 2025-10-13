@@ -14,15 +14,12 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->index()->comment('The person who placed the order');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->comment('The person who placed the order');
             $table->string('order_number', 50)->unique()->comment('Order code');
             $table->decimal('total_amount', 10, 2)->default(0)->comment('Total amount');
             $table->decimal('shipping_fee', 10, 2)->default(0)->comment('Shipping fee');
             $table->text('customer_note')->nullable()->comment('Guest Notes');
             $table->text('admin_note')->nullable()->comment('Administrator Note');
-            // $table->enum('status', ['pending', 'paid', 'shipped', 'completed', 'cancelled'])
-            //     ->default('pending')
-            //     ->comment('Trạng thái đơn hàng');
             $table->enum('status', OrderStatus::values())
                 ->default(OrderStatus::Pending->value)
                 ->comment('Order status');

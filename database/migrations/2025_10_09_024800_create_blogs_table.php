@@ -13,11 +13,10 @@ return new class extends Migration {
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('author_id')->constrained('users')->cascadeOnDelete()->index();
+            $table->foreignId('author_id')->constrained('users')->cascadeOnDelete();
             $table->string('title', 255);
             $table->string('slug', 255)->unique();
             $table->text('content');
-            // $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
             $table->enum('status', BlogStatus::values())
                 ->default(BlogStatus::Draft->value);
             $table->timestamps();

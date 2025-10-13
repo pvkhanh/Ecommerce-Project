@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('imageables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('image_id')->constrained('images')->cascadeOnDelete()->index();
+            $table->foreignId('image_id')->constrained('images')->cascadeOnDelete();
             $table->morphs('imageable');
             $table->boolean('is_main')->default(false);
             $table->integer('position')->default(0);

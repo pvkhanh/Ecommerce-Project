@@ -13,11 +13,19 @@ return new class extends Migration
     {
         Schema::create('stock_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('variant_id')->constrained('product_variants')->cascadeOnDelete()->index();
-            $table->integer('quantity');
+            $table->unsignedBigInteger('variant_id');
+            $table->foreign('variant_id', 'fk_stock_items_variant_id')
+                  ->references('id')
+                  ->on('product_variants')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+
+            $table->integer('quantity')->default(0);
             $table->string('location', 100)->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('variant_id', 'idx_stock_items_variant_id');
         });
     }
 
@@ -26,6 +34,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('stock_items', function (Blueprint $table) {
+            $table->dropForeign('fk_stock_items_variant_id');
+            $table->dropIndex('idx_stock_items_variant_id');
+        });
+
         Schema::dropIfExists('stock_items');
     }
 };
