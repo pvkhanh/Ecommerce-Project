@@ -17,7 +17,10 @@ return new class extends Migration {
             $table->boolean('is_main')->default(false);
             $table->integer('position')->default(0);
             $table->timestamps();
-            $table->index(['imageable_id', 'imageable_type']); // ✅ polymorphic lookup
+             $table->unique(
+                ['image_id', 'imageable_id', 'imageable_type'],
+                'imgbls_unique'
+            );
         });
     }
 
