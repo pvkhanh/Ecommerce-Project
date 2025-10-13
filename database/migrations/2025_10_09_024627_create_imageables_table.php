@@ -12,14 +12,11 @@ return new class extends Migration {
     {
         Schema::create('imageables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('image_id')->constrained('images')->cascadeOnDelete();
-            $table->unsignedBigInteger('imageable_id');
-            $table->string('imageable_type', 100);
+            $table->foreignId('image_id')->constrained()->cascadeOnDelete();
+            $table->morphs('imageable');
             $table->boolean('is_main')->default(false);
             $table->integer('position')->default(0);
             $table->timestamps();
-            $table->index(['imageable_id', 'imageable_type'], 'imgbls_idx');
-            $table->index('image_id');
         });
     }
 
