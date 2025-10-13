@@ -17,8 +17,7 @@ return new class extends Migration {
             $table->string('imageable_type', 100);
             $table->boolean('is_main')->default(false);
             $table->integer('position')->default(0);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
             $table->index(['imageable_id', 'imageable_type'], 'imgbls_idx');
             $table->index('image_id');
         });

@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Enums\MailRecipientStatus;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('mail_recipients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mail_id')->constrained('mails')->cascadeOnDelete();
+            $table->foreignId('mail_id')->constrained('mails')->restrictOnDelete();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('email', 255);
             $table->string('name', 100)->nullable();
             // $table->enum('status', ['pending', 'sent', 'failed'])->default('pending');
-             $table->enum('status', MailRecipientStatus::values())
-                  ->default(MailRecipientStatus::Pending->value);
+            $table->enum('status', MailRecipientStatus::values())
+                ->default(MailRecipientStatus::Pending->value);
             $table->text('error_log')->nullable();
             $table->timestamps();
             $table->softDeletes();

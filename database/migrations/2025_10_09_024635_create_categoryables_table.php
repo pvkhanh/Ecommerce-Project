@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->unsignedBigInteger('categoryable_id');
-            $table->string('categoryable_type', 50);
+            $table->string('categoryable_type', 100);
             $table->timestamp('created_at')->useCurrent();
             $table->unique(
                 ['category_id', 'categoryable_id', 'categoryable_type'],
