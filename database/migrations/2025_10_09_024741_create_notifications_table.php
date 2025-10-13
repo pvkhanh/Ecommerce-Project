@@ -15,15 +15,15 @@ return new class extends Migration {
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->index();
             // $table->enum('type', ['system', 'order', 'promotion', 'activity'])
             //     ->comment('Loại thông báo');
             $table->enum('type', NotificationType::values())
-                ->comment('Loại thông báo');
+                ->comment('Notification Type');
             $table->string('title', 255);
             $table->text('message')->nullable();
             $table->json('variables')->nullable();
-            $table->boolean('is_read')->default(false);
+            $table->boolean('is_read')->default(false)->index();
             $table->timestamp('read_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();

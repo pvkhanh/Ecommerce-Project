@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('slug', 100)->unique();
             $table->text('description')->nullable();
-            $table->foreignId('parent_id')->nullable()->constrained('categories')->nullOnDelete()
-                ->comment('ID danh mục cha, null nếu là gốc');
+            $table->foreignId('parent_id')->nullable()->constrained('categories')->nullOnDelete()->index()
+                ->comment('Parent category ID, null if root');
             $table->integer('level')->default(0);
             $table->integer('position')->default(0);
             $table->timestamps();

@@ -12,11 +12,12 @@ return new class extends Migration {
     {
         Schema::create('imageables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('image_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('image_id')->constrained('images')->cascadeOnDelete()->index();
             $table->morphs('imageable');
             $table->boolean('is_main')->default(false);
             $table->integer('position')->default(0);
             $table->timestamps();
+            $table->index(['imageable_id', 'imageable_type']); // ✅ polymorphic lookup
         });
     }
 

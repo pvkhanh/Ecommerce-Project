@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->index();
             $table->string('receiver_name', 100);
             $table->string('phone', 20);
             $table->string('address', 255);
@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('district', 100);
             $table->string('ward', 100);
             $table->string('postal_code', 20)->nullable();
-            $table->boolean('is_default')->default(false);
+            $table->boolean('is_default')->default(false)->index();
             $table->timestamps();
             $table->softDeletes();
         });

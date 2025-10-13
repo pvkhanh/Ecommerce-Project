@@ -20,7 +20,7 @@ return new class extends Migration {
             //     ->comment('Loại email');
             $table->enum('type', MailType::values())
                 ->default(MailType::System->value)
-                ->comment('Loại email');
+                ->comment('Email type');
             $table->string('sender_email', 255)->nullable();
             $table->json('variables')->nullable();
             $table->timestamps();

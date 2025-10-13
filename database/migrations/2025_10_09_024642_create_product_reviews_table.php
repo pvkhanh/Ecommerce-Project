@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete()->index();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->index();
             $table->integer('rating');
             $table->text('comment')->nullable();
             // $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
