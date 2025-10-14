@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
+            //Cascade delete because a cart should not exist after the user is deleted
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            //Cascade delete because cart items depend on existing products
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            //Null on delete to avoid breaking cart items when a variant is removed
             $table->foreignId('variant_id')->nullable()->constrained('product_variants')->nullOnDelete();
             $table->integer('quantity')->default(1);
             $table->boolean('selected')->default(true);

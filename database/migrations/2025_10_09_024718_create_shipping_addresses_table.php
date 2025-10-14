@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id();
+            //Cascade delete because shipping address exists only with its order
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->string('receiver_name', 100);
             $table->string('phone', 20);

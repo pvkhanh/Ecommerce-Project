@@ -14,10 +14,11 @@ return new class extends Migration {
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+            //Restrict on delete to prevent deleting orders that have payment records
+            $table->foreignId('order_id')->constrained('orders')->restrictOnDelete();
             $table->enum('payment_method', PaymentMethod::values())
                 ->comment('Payment method');
-            $table->string('transaction_id', 100)->nullable()->unique() 
+            $table->string('transaction_id', 100)->nullable()->unique()
                 ->comment('Transaction code');
             $table->decimal('amount', 10, 2)->default(0);
             $table->timestamp('paid_at')->nullable();

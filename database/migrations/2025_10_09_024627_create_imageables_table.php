@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('imageables', function (Blueprint $table) {
             $table->id();
+            //Cascade delete because if an image is removed, all its polymorphic relations should also be removed
             $table->foreignId('image_id')->constrained('images')->cascadeOnDelete();
             $table->morphs('imageable');
             $table->boolean('is_main')->default(false);

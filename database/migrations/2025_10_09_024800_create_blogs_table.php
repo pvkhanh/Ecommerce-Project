@@ -13,7 +13,8 @@ return new class extends Migration {
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('author_id')->constrained('users')->cascadeOnDelete();
+            //Null on delete to preserve blog posts even if the author is deleted
+            $table->foreignId('author_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('title', 255);
             $table->string('slug', 255)->unique();
             $table->text('content');

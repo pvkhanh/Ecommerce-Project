@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('slug', 100)->unique();
             $table->text('description')->nullable();
+            //Null on delete because deleting a parent category should only unlink its children, not delete them
             $table->foreignId('parent_id')->nullable()->constrained('categories')->nullOnDelete()
                 ->comment('Parent category ID, null if root');
             $table->integer('level')->default(0);

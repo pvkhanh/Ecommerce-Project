@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('categoryables', function (Blueprint $table) {
             $table->id();
+            //Cascade delete to remove relationships when a category is deleted
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->morphs('categoryable');
             $table->timestamps();

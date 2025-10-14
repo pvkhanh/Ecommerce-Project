@@ -14,7 +14,8 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->comment('The person who placed the order');
+            //Null on delete to preserve order history even if the user account is deleted
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete()->comment('The person who placed the order');
             $table->string('order_number', 50)->unique()->comment('Order code');
             $table->decimal('total_amount', 10, 2)->default(0)->comment('Total amount');
             $table->decimal('shipping_fee', 10, 2)->default(0)->comment('Shipping fee');

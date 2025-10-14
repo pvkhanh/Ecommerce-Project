@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
+            //Cascade delete because variants belong strictly to their parent product
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->string('name', 100);
             $table->string('sku', 50)->unique();

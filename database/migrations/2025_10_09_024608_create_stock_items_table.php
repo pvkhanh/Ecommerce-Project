@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,7 +12,8 @@ return new class extends Migration
     {
         Schema::create('stock_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('variant_id')->constrained('product_variants')->cascadeOnDelete()->index();
+            //Cascade delete because stock items depend entirely on their product variant
+            $table->foreignId('variant_id')->constrained('product_variants')->cascadeOnDelete();
             $table->integer('quantity');
             $table->string('location', 100)->nullable();
             $table->timestamps();

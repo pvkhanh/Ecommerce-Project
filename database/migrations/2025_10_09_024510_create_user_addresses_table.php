@@ -12,7 +12,8 @@ return new class extends Migration {
     {
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            //Address belongs to 1 user → when user deletes, address must be deleted too.
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->comment('Cascade delete because addresses should not exist after the user is deleted');
             $table->string('receiver_name', 100);
             $table->string('phone', 20);
             $table->string('address', 255);

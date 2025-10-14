@@ -15,6 +15,7 @@ return new class extends Migration {
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
+            //Cascade delete because notifications are user-specific and should be removed with the user
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->enum('type', NotificationType::values())
                 ->comment('Notification Type');
