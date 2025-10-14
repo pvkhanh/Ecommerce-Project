@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\backend\DashboardController;
 
 Route::get('/', function () {
@@ -9,13 +11,16 @@ Route::get('/', function () {
 
 
 
-// Route::prefix('admin')->group(function () {
-//     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-// });
+//14-10-2025: Login, Logout
 
-// Route::get('/admin', function () {
-//     return view('admin.pages.dashboard');
-// });
+
+Route::get('login1', [AuthController::class, 'login1'])->name('login1');
+Route::post('login1', [AuthController::class, 'postLogin'])->name('postLogin');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+
+//-----------------------------------------------------------------------------//
+
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -63,5 +68,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // TABLES
     Route::get('/table', fn() => view('admin.pages.table'))->name('table');
     Route::get('/datatable', fn() => view('admin.pages.datatable'))->name('datatable');
+
 
 });
