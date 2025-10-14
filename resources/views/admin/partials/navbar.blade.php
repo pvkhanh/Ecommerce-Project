@@ -40,22 +40,32 @@
                     <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
                     <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i data-feather="log-out"></i> Logout</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"><i data-feather="log-out"></i> Logout</a>
                 </div>
             </li>
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <div class="avatar mr-1">
+                    {{-- <div class="avatar mr-1">
                         <img src="/backend/template/assets/images/avatar/avatar-s-1.png" alt="" srcset="">
+                    </div> --}}
+                    <div class="avatar mr-1">
+                        <img src="{{ Auth::user()->avatar_url ? asset(Auth::user()->avatar_url) : '/backend/template/assets/images/avatar/avatar-s-1.png' }}"
+                            alt="Avatar">
                     </div>
-                    <div class="d-none d-md-block d-lg-inline-block">Hi, Saugi</div>
+
+                    {{-- <div class="d-none d-md-block d-lg-inline-block">Hi, Saugi</div> --}}
+                    <div class="d-none d-md-block d-lg-inline-block">
+                        Hi, {{ Auth::user()->full_name ?: Auth::user()->username ?? (Auth::user()->email ?? 'Guest') }}
+                    </div>
+
+
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
                     <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
                     <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i data-feather="log-out"></i> Logout</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"><i data-feather="log-out"></i> Logout</a>
                 </div>
             </li>
         </ul>
